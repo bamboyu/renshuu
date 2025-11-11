@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface KanaItem {
   kana: string;
@@ -6,15 +6,25 @@ export interface KanaItem {
   group: string; // row name (a, ka, sa...)
 }
 
-interface KanaProps {
+export interface KanaProps {
   items: KanaItem[];
+  onSelectionChange: (item: KanaItem[]) => void;
 }
 
-const Kana = ({ items }: KanaProps) => {
+const Kana = ({ items, onSelectionChange }: KanaProps) => {
   // State to track which groups are checked
   const [checkedGroups, setCheckedGroups] = useState<Record<string, boolean>>(
     {}
   );
+
+  // Effect to notify parent component of selection changes
+  useEffect(() => {
+    const selectedItems: KanaItem[] = items.filter(
+      (item) => checkedGroups[item.group]
+    );
+    onSelectionChange(selectedItems);
+    // Notify parent component of selection change
+  }, [checkedGroups, items]);
 
   // Handle checkbox toggle
   const handleCheckboxChange = (group: string) => {
@@ -68,8 +78,11 @@ const Kana = ({ items }: KanaProps) => {
               </label>
             </div>
             <div className="kana-row">
-              {kanaList.map((kanaItem) => (
-                <div key={kanaItem.kana} className="kana-item">
+              {kanaList.map((kanaItem, index) => (
+                <div
+                  key={`${kanaItem.group}-${kanaItem.kana}-${index}`}
+                  className="kana-item"
+                >
                   <span className="kana-character">{kanaItem.kana}</span>
                   <span className="kana-romaji">{kanaItem.romaji}</span>
                 </div>
