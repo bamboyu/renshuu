@@ -19,6 +19,25 @@ function App() {
 
   return (
     <div className="App">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
+          <a className="navbar-brand ms-5" href="#">
+            Renshuu
+          </a>
+          <ul className="navbar-nav d-flex flex-row gap-2">
+            <li className="nav-item">
+              <button className="btn btn-outline-primary" type="submit">
+                Login
+              </button>
+            </li>
+            <li className="nav-item">
+              <button className="btn btn-secondary" type="submit">
+                Sign up
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <img src="" alt="" />
       <div className="d-flex justify-content-center mt-4">
         <KanaFlashCard selectedKana={selectedKana} />
