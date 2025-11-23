@@ -10,11 +10,14 @@ const KanaFlashcard = ({ selectedKana }: FlashcardProps) => {
   const [answer, setAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
 
+  // If no kana selected, show message
   if (selectedKana.length === 0)
     return <p className="text-center mt-3">No kana selected yet</p>;
 
+  // Current kana to display
   const current = selectedKana[index];
 
+  // Handle answer input change
   const handleChange = (value: string) => {
     setAnswer(value);
     if (value.trim().toLowerCase() === current.romaji.toLowerCase()) {
@@ -45,7 +48,7 @@ const KanaFlashcard = ({ selectedKana }: FlashcardProps) => {
 
       <input
         type="text"
-        className="form-control mb-2 text-center bg-transparent text-light border border-dark"
+        className="form-control mb-2 text-center bg-transparent text-light border border-black-subtle"
         value={answer}
         onChange={(e) => handleChange(e.target.value)}
         autoFocus

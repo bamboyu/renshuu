@@ -15,14 +15,16 @@ function App() {
     (item) => item.kana !== ""
   );
   // show/hide kana state (not used currently)
-  const [showKana, setShowKana] = useState(false);
+  const [showKana, setShowKana] = useState(true);
 
   return (
     <div className="App">
       <img src="" alt="" />
+      {/* Flash card component */}
       <div className="d-flex justify-content-center mt-4">
         <KanaFlashCard selectedKana={selectedKana} />
       </div>
+      {/* Button to hide/show kana */}
       <div className="d-flex justify-content-center mt4">
         <button
           className="btn btn-primary me-2"
@@ -37,7 +39,8 @@ function App() {
           Hide Kana
         </button>
       </div>
-      <div className={showKana ? "" : "invisible"}>
+      {/* Kana list */}
+      <div className={showKana ? "" : "d-none"}>
         <div className="kana-container-wrapper">
           <h3 className="kana-title">Hiragana</h3>
           <KanaList items={hiragana} onSelectionChange={setSelectedHira} />
