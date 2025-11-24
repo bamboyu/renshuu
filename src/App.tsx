@@ -1,34 +1,22 @@
 import "./App.css";
-import KanaList from "./components/LearnKana/KanaList";
-import { hiragana, katakana } from "./data/kana";
-import KanaFlashCard from "./components/LearnKana/KanaFlashCard";
-import { useState } from "react";
-import type { KanaItem } from "./components/LearnKana/KanaList";
+import { Routes, Route, Link } from "react-router-dom";
+import LearnKana from "./pages/LearnKana";
+import Login from "./pages/Login";
 
 function App() {
-  // State to hold selected kana from both lists
-  const [selectedHira, setSelectedHira] = useState<KanaItem[]>([]);
-  const [selectedKata, setSelectedKata] = useState<KanaItem[]>([]);
-
-  // Combine selected kana for flashcards
-  const selectedKana = [...selectedHira, ...selectedKata].filter(
-    (item) => item.kana !== ""
-  );
-  // show/hide kana state (not used currently)
-  const [showKana, setShowKana] = useState(true);
-
   return (
     <div className="App">
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      {/* NAVBAR */}
+      <nav className="navbar navbar-expand-lg bg-dark.bg-gradient">
         <div className="container-fluid">
-          <a className="navbar-brand ms-5" href="#">
+          <a className="navbar-brand ms-5 text-white text-opacity-75" href="#">
             Renshuu
           </a>
           <ul className="navbar-nav d-flex flex-row gap-2">
             <li className="nav-item">
-              <button className="btn btn-outline-primary" type="submit">
+              <Link to="/login" className="btn btn-outline-primary">
                 Login
-              </button>
+              </Link>
             </li>
             <li className="nav-item">
               <button className="btn btn-secondary" type="submit">
@@ -39,36 +27,20 @@ function App() {
         </div>
       </nav>
       <img src="" alt="" />
-      {/* Flash card component */}
-      <div className="d-flex justify-content-center mt-4">
-        <KanaFlashCard selectedKana={selectedKana} />
-      </div>
-      {/* Button to hide/show kana */}
-      <div className="d-flex justify-content-center mt4">
-        <button
-          className="btn btn-primary me-2"
-          onClick={() => setShowKana(true)}
-        >
-          Show Kana
-        </button>
-        <button
-          className="btn btn-secondary"
-          onClick={() => setShowKana(false)}
-        >
-          Hide Kana
-        </button>
-      </div>
-      {/* Kana list */}
-      <div className={showKana ? "" : "d-none"}>
-        <div className="kana-container-wrapper">
-          <h3 className="kana-title">Hiragana</h3>
-          <KanaList items={hiragana} onSelectionChange={setSelectedHira} />
-        </div>
-        <div className="kana-container-wrapper">
-          <h3 className="kana-title">Katakana</h3>
-          <KanaList items={katakana} onSelectionChange={setSelectedKata} />
-        </div>
-      </div>
+
+      {/* ROUTES */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="text-center mt-5">
+              <h1>Welcome to Renshuu!</h1>
+            </div>
+          }
+        />
+        <Route path="/learn/kana" element={<LearnKana />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </div>
   );
 }

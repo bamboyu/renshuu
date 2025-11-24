@@ -1,10 +1,8 @@
 /* Container for all kana groups */
-
-
 .kana-container-wrapper {
   display: flex;
-  padding-top: 50px;        /* spacing from top */
-  width: 100%;              /* full width wrapper */
+  padding-top: 50px; /* spacing from top */
+  width: 100%; /* full width wrapper */
   align-items: center;
   flex-direction: column;
 }
@@ -13,11 +11,11 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  justify-content: center;  
-  max-width: 900px;      
+  justify-content: center;
+  max-width: 900px;
 }
 
-/* Kana tite */ 
+/* Kana tite */
 .kana-title {
   font-size: 2rem;
   font-weight: bold;
@@ -26,10 +24,10 @@
 
 /* Each group (A, KA, SA...) */
 .kana-group {
-  display: flex;             /* flex container */
-  flex-direction: column;    /* vertical stacking */
-  justify-content: center;   /* center items vertically */
-  align-items: center;       /* center items horizontally */
+  display: flex; /* flex container */
+  flex-direction: column; /* vertical stacking */
+  justify-content: center; /* center items vertically */
+  align-items: center; /* center items horizontally */
   max-width: 2rem;
 }
 
@@ -51,8 +49,8 @@
   font-size: 1.2rem;
   padding: 0.4rem;
   border: 1px solid #000000;
-  min-width: 2.5rem;  
-  min-height: 4rem;  
+  min-width: 2.5rem;
+  min-height: 4rem;
 }
 
 /* Kana character styling */
@@ -76,11 +74,10 @@
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   color: #ffffff;
-  flex:1;
+  flex: 1;
 }
 
 .kana-checkbox {
   margin-right: 0.3rem;
   color: #ffffff;
 }
-
