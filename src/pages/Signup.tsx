@@ -15,24 +15,23 @@ function Signup() {
     }
 
     console.log("Signup:", { email, password });
-    // Redirect to login page after signup
-    navigate("/login");
+    navigate("/login"); // redirect after signup
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100 bg-dark text-light">
+    <div className="d-flex justify-content-center mt-5">
       <div
-        className="card p-4 shadow-lg"
+        className="card p-4"
         style={{
           width: "360px",
           borderRadius: "12px",
-          backgroundColor: "#1e1e1e",
+          backgroundColor: "#202020ff",
         }}
       >
-        <h2 className="text-center mb-4">Sign Up</h2>
+        <h2 className="text-center text-white mb-4">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="form-label">Email</label>
+            <label className="form-label text-white">Email</label>
             <input
               type="email"
               className="form-control bg-dark text-light border-secondary"
@@ -42,7 +41,7 @@ function Signup() {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Password</label>
+            <label className="form-label text-white">Password</label>
             <input
               type="password"
               className="form-control bg-dark text-light border-secondary"
@@ -52,7 +51,7 @@ function Signup() {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Confirm Password</label>
+            <label className="form-label text-white">Confirm Password</label>
             <input
               type="password"
               className="form-control bg-dark text-light border-secondary"
@@ -61,11 +60,11 @@ function Signup() {
               required
             />
           </div>
-          <button type="submit" className="btn btn-secondary w-100">
-            Create Account
+          <button type="submit" className="btn btn-primary w-100">
+            Sign Up
           </button>
         </form>
-        <p className="mt-3 text-center">
+        <p className="mt-3 text-center text-white text-opacity-50">
           Already have an account?{" "}
           <a href="/login" className="text-info">
             Login

@@ -4,13 +4,34 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", { email, password });
+
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Login failed");
+        return;
+      }
+
+      // Save access token in localStorage for API calls
+      localStorage.setItem("accessToken", data.accessToken);
+    } catch (err) {
+      console.error(err);
+      alert("Login failed. Check console for details.");
+    }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center ">
+    <div className="d-flex justify-content-center align-items-center mt-5">
       <div
         className="card p-4"
         style={{
