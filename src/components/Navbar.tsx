@@ -28,7 +28,7 @@ export default function Navbar() {
           ) : (
             <>
               <li className="nav-item">
-                <Link to="/login" className="btn btn-outline-primary">
+                <Link to="/login" className="btn btn-outline-primary ms-10">
                   Login
                 </Link>
               </li>

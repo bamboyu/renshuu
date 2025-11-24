@@ -15,7 +15,7 @@ function Signup() {
     }
 
     console.log("Signup:", { email, password });
-    navigate("/login"); // redirect after signup
+    navigate("/login");
   };
 
   return (

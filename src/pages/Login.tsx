@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { setAuth } = useContext(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +28,9 @@ function Login() {
 
       // Save access token in localStorage for API calls
       localStorage.setItem("accessToken", data.accessToken);
+      setAuth(true);
+
+      navigate("/");
     } catch (err) {
       console.error(err);
       alert("Login failed. Check console for details.");
