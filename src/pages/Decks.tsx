@@ -2,7 +2,7 @@ import { useState } from "react";
 import DeckCard from "../components/Deck/DeckCard";
 
 const Decks = () => {
-  const [decks, setDecks] = useState([
+  const [decks] = useState([
     // test valuie
     { _id: "1", name: "Hiragana", cards: 46 },
     { _id: "2", name: "Katakana", cards: 46 },

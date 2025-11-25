@@ -37,17 +37,14 @@ export default function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg bg-black bg-opacity-25">
-      <div className="container-fluid d-flex align-items-center">
-        <a className="navbar-brand ms-5 text-white fs-4" href="/">
+      <div className="container-fluid d-flex align-items-center ms-3">
+        <a className="navbar-brand ms-5 text-white fs-4 mb-1" href="/">
           Renshuu
         </a>
         {isAuthenticated && (
           <ul className="navbar-nav ms-4">
             <li className="nav-item">
-              <Link
-                to="/decks"
-                className="nav-link text-white text-opacity-50 fs-5"
-              >
+              <Link to="/decks" className="nav-link text-white-50 fs-5 ms-3">
                 Decks
               </Link>
             </li>
