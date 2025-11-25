@@ -7,15 +7,35 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
-    console.log("Signup:", { email, password });
-    navigate("/login");
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+        credentials: "include", // needed if backend uses cookies
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Signup failed");
+        return;
+      }
+
+      alert("Signup successful! Please login.");
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      alert("Signup failed. Check console for details.");
+    }
   };
 
   return (

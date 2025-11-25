@@ -15,7 +15,7 @@ export default function Navbar() {
 
     // Call API
     try {
-      const res = await fetch("http://localhost:5000/logout", {
+      const res = await fetch("http://localhost:5000/api/auth/logout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
