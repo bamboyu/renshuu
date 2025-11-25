@@ -7,9 +7,13 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const handleLogout = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     // Clear tokens and auth state
     localStorage.removeItem("accessToken");
     setAuth(false);
+
+    // Call API
     try {
       const res = await fetch("http://localhost:5000/logout", {
         method: "POST",
@@ -33,17 +37,34 @@ export default function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg bg-black bg-opacity-25">
-      <div className="container-fluid">
-        <a className="navbar-brand ms-5 text-white text-opacity-75" href="/">
+      <div className="container-fluid d-flex align-items-center">
+        <a className="navbar-brand ms-5 text-white fs-4" href="/">
           Renshuu
         </a>
+        {isAuthenticated && (
+          <ul className="navbar-nav ms-4">
+            <li className="nav-item">
+              <Link
+                to="/decks"
+                className="nav-link text-white text-opacity-50 fs-5"
+              >
+                Decks
+              </Link>
+            </li>
+          </ul>
+        )}
         <ul className="navbar-nav d-flex flex-row gap-2 ms-auto">
           {isAuthenticated ? (
-            <li className="nav-item">
-              <button className="btn btn-outline-danger" onClick={handleLogout}>
-                Logout
-              </button>
-            </li>
+            <>
+              <li className="nav-item">
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
           ) : (
             <>
               <li className="nav-item">

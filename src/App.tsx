@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import LearnKana from "./pages/LearnKana";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Decks from "./pages/Decks";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/learn/kana" element={<LearnKana />} />
+        <Route path="/decks" element={<Decks />} />
       </Routes>
     </div>
   );
