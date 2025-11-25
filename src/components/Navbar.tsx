@@ -1,15 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Navbar() {
   const { isAuthenticated, setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async (e: React.FormEvent) => {
     // Clear tokens and auth state
     localStorage.removeItem("accessToken");
     setAuth(false);
-    // You can also call your logout API here
+    try {
+      const res = await fetch("http://localhost:5000/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Logout failed");
+        return;
+      }
+
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      alert("Logout failed. Check console for details.");
+    }
   };
 
   return (
