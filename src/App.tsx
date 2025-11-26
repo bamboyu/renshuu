@@ -5,6 +5,7 @@ import LearnKana from "./pages/LearnKana";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Decks from "./pages/Decks";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/learn/kana" element={<LearnKana />} />
         <Route path="/decks" element={<Decks />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

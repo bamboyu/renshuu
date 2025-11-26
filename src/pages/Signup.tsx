@@ -20,7 +20,7 @@ function Signup() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-        credentials: "include", // needed if backend uses cookies
+        credentials: "include",
       });
 
       const data = await res.json();

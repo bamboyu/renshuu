@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { loginUser } from "../api/authApi";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -12,28 +13,16 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-        credentials: "include",
-      });
+      const data = await loginUser(email, password);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || "Login failed");
-        return;
-      }
-
-      // Save access token in localStorage for API calls
+      // Save access token for authenticated API calls
       localStorage.setItem("accessToken", data.accessToken);
       setAuth(true);
 
       navigate("/");
-    } catch (err) {
+    } catch (err: any) {
+      alert(err.message);
       console.error(err);
-      alert("Login failed. Check console for details.");
     }
   };
 

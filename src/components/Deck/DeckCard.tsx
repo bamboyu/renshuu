@@ -4,7 +4,8 @@ interface DeckCardProps {
   deck: {
     _id: string;
     name: string;
-    cards: number;
+    createdAt: string;
+    updatedAt: string;
   };
 }
 
@@ -19,7 +20,6 @@ function DeckCard({ deck }: DeckCardProps) {
       }}
     >
       <h4>{deck.name}</h4>
-      <p className="text-secondary">{deck.cards} cards</p>
 
       <Link to={`/decks/${deck._id}`} className="btn btn-outline-primary w-100">
         Open Deck

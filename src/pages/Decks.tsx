@@ -1,13 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeckCard from "../components/Deck/DeckCard";
+import { getDecks } from "../api/deckApi";
+
+interface Deck {
+  _id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const Decks = () => {
-  const [decks] = useState([
-    // test valuie
-    { _id: "1", name: "Hiragana", cards: 46 },
-    { _id: "2", name: "Katakana", cards: 46 },
-    { _id: "3", name: "JLPT N5 Vocabulary", cards: 100 },
-  ]);
+  const [decks, setDecks] = useState<Deck[]>([]);
+
+  useEffect(() => {
+    async function fetchDecks() {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) return;
+
+        const data = await getDecks(token);
+        setDecks(data);
+      } catch (err) {
+        console.error("Error fetching decks:", err);
+      }
+    }
+
+    fetchDecks();
+  }, []);
 
   return (
     <div className="container mt-4">
