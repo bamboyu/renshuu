@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { logoutUser } from "../api/authApi";
 
 export default function Navbar() {
   const { isAuthenticated, setAuth } = useContext(AuthContext);
@@ -15,23 +16,10 @@ export default function Navbar() {
 
     // Call API
     try {
-      const res = await fetch("http://localhost:5000/api/auth/logout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || "Logout failed");
-        return;
-      }
-
+      logoutUser();
       navigate("/");
     } catch (err) {
       console.error(err);
-      alert("Logout failed. Check console for details.");
     }
   };
 

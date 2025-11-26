@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signupUser } from "../api/authApi";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -14,27 +15,12 @@ function Signup() {
       alert("Passwords do not match!");
       return;
     }
-
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || "Signup failed");
-        return;
-      }
-
-      alert("Signup successful! Please login.");
+      const data = await signupUser(email, password);
       navigate("/login");
-    } catch (err) {
+    } catch (err: any) {
+      alert(err.message);
       console.error(err);
-      alert("Signup failed. Check console for details.");
     }
   };
 

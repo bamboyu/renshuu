@@ -15,7 +15,6 @@ function Login() {
     try {
       const data = await loginUser(email, password);
 
-      // Save access token for authenticated API calls
       localStorage.setItem("accessToken", data.accessToken);
       setAuth(true);
 
