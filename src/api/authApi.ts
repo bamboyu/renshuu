@@ -57,3 +57,12 @@ export async function logoutUser() {
     alert("Logout failed. Check console for details.");
   }
 }
+
+export async function refreshAccessToken() {
+  const res = await fetch("http://localhost:5000/api/auth/token", {
+    method: "POST",
+    credentials: "include",
+  });
+
+  return res.json();
+}

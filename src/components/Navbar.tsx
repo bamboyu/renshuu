@@ -14,9 +14,9 @@ export default function Navbar() {
     localStorage.removeItem("accessToken");
     setAuth(false);
 
-    // Call API
+    // Call logout function
     try {
-      logoutUser();
+      await logoutUser();
       navigate("/");
     } catch (err) {
       console.error(err);

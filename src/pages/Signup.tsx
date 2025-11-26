@@ -11,12 +11,13 @@ function Signup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // call logout function
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
     try {
-      const data = await signupUser(email, password);
+      await signupUser(email, password);
       navigate("/login");
     } catch (err: any) {
       alert(err.message);

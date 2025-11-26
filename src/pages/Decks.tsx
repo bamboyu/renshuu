@@ -12,6 +12,7 @@ interface Deck {
 const Decks = () => {
   const [decks, setDecks] = useState<Deck[]>([]);
 
+  //fetch Decks
   useEffect(() => {
     async function fetchDecks() {
       try {

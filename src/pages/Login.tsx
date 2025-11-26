@@ -12,6 +12,7 @@ function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Call login function
     try {
       const data = await loginUser(email, password);
 
