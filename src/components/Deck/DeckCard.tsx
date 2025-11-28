@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+// Define the props for DeckCard component
 interface DeckCardProps {
   deck: {
     _id: string;
@@ -9,6 +10,7 @@ interface DeckCardProps {
   };
 }
 
+// DeckCard component to display individual deck information
 function DeckCard({ deck }: DeckCardProps) {
   return (
     <div

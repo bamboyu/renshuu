@@ -1,3 +1,4 @@
+// Not found page
 const NotFound = () => {
   return (
     <div className="text-center mt-5 text-white">

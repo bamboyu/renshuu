@@ -11,12 +11,13 @@ function Signup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // call logout function
+    // Check passwords match
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
     try {
+      // call signup function
       await signupUser(email, password);
       navigate("/login");
     } catch (err: any) {
@@ -26,6 +27,7 @@ function Signup() {
   };
 
   return (
+    // Signup Form
     <div className="d-flex justify-content-center mt-5">
       <div
         className="card p-4"

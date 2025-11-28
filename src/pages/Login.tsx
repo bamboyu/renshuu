@@ -16,8 +16,11 @@ function Login() {
     try {
       const data = await loginUser(email, password);
 
+      // Store token and userID in localStorage
       localStorage.setItem("accessToken", data.accessToken);
-      setAuth(true);
+      localStorage.setItem("userID", data.user.id);
+
+      setAuth(data.accessToken, data.user.id);
 
       navigate("/");
     } catch (err: any) {
@@ -27,6 +30,7 @@ function Login() {
   };
 
   return (
+    // Login Form
     <div className="d-flex justify-content-center align-items-center mt-5">
       <div
         className="card p-4"

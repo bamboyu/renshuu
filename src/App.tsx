@@ -33,6 +33,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/learn/kana" element={<LearnKana />} />
+
+        {/* Check for authentication */}
         {isAuthenticated && <Route path="/decks" element={<Decks />} />}
         <Route path="*" element={<NotFound />} />
       </Routes>
