@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DeckCard from "../components/Deck/DeckCard";
-import { getDecks } from "../api/deckApi";
+import { getDecks, createDeck } from "../api/deckApi";
+import { refreshAccessToken } from "../api/authApi";
 
 interface Deck {
   _id: string;
@@ -12,7 +13,7 @@ interface Deck {
 const Decks = () => {
   const [decks, setDecks] = useState<Deck[]>([]);
 
-  //fetch Decks
+  // fetch Decks
   useEffect(() => {
     async function fetchDecks() {
       try {
@@ -29,6 +30,27 @@ const Decks = () => {
     fetchDecks();
   }, []);
 
+  async function handleCreateDeck() {
+    // Logic to create a new deck
+    const name = prompt("Enter deck name:");
+    if (!name) return;
+
+    try {
+      const token = localStorage.getItem("accessToken");
+      const userID = localStorage.getItem("userID");
+
+      if (!token || !userID) return;
+
+      const newDeck = await createDeck(token, name);
+
+      // Add the new deck to state
+      setDecks((prev) => [...prev, newDeck]);
+    } catch (err) {
+      console.error("Error creating deck:", err);
+      alert("Failed to create deck.");
+    }
+  }
+
   // Render Decks
   return (
     <div className="container mt-4">
@@ -37,12 +59,15 @@ const Decks = () => {
       </div>
       <div className="row">
         {decks.map((deck) => (
-          <div key={deck._id} col-md-4 col-sm-6 mb-4>
+          <div key={deck._id} className="mb-2">
             <DeckCard deck={deck} />
           </div>
         ))}
       </div>
-      <button className="btn btn-primary mt-3">+ Create Deck</button>
+      {/* Button to create deck */}
+      <button onClick={handleCreateDeck} className="btn btn-primary mt-3">
+        + Create Deck
+      </button>
     </div>
   );
 };
