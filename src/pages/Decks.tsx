@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import DeckCard from "../components/Deck/DeckCard";
 import { getDecks, createDeck } from "../api/deckApi";
-import { refreshAccessToken } from "../api/authApi";
 
 interface Deck {
   _id: string;
