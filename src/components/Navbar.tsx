@@ -12,7 +12,7 @@ export default function Navbar() {
 
     // Clear tokens and auth state
     localStorage.removeItem("accessToken");
-    setAuth(false);
+    setAuth("", "");
 
     // Call logout function
     try {
