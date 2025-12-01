@@ -34,7 +34,7 @@ function DeckCard({ deck, cardCount }: DeckCardProps) {
 
       <div className="d-flex gap-2">
         <Link
-          to={`/decks/${deck._id}`}
+          to={`/review/${deck._id}`}
           className="btn btn-outline-primary flex-grow-1"
         >
           Open Deck

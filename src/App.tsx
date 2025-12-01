@@ -9,6 +9,7 @@ import AddCard from "./pages/AddCard";
 import NotFound from "./pages/NotFound";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import Review from "./pages/Review";
 
 function App() {
   const accessToken = localStorage.getItem("accessToken") || "";
@@ -44,6 +45,7 @@ function App() {
               path="/decks/add-card"
               element={<AddCard accessToken={accessToken} />}
             />
+            <Route path="/review/:deckID" element={<Review />} />
           </>
         )}
         <Route path="*" element={<NotFound />} />
