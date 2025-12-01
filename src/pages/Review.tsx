@@ -53,7 +53,15 @@ const Review = () => {
   };
 
   if (loading) return <div className="text-white">Loading...</div>;
-  if (!card) return <div className="text-white">No cards due for review!</div>;
+  if (!card)
+    return (
+      <div
+        className="d-flex justify-content-center mt-4"
+        style={{ height: "80vh", color: "white", fontSize: "2rem" }}
+      >
+        No cards due for review!
+      </div>
+    );
 
   return (
     <div className="container mt-4">
