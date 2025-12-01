@@ -5,6 +5,7 @@ import LearnKana from "./pages/LearnKana";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Decks from "./pages/Decks";
+import AddCard from "./pages/AddCard";
 import NotFound from "./pages/NotFound";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
@@ -35,7 +36,19 @@ function App() {
         <Route path="/learn/kana" element={<LearnKana />} />
 
         {/* Check for authentication */}
-        {isAuthenticated && <Route path="/decks" element={<Decks />} />}
+        {isAuthenticated && (
+          <>
+            <Route path="/decks" element={<Decks />} />{" "}
+            <Route
+              path="/decks/add-card"
+              element={
+                <AddCard
+                  accessToken={localStorage.getItem("accessToken") || ""}
+                />
+              }
+            />
+          </>
+        )}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
