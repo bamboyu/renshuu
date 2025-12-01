@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { getCards, createCard, updateCard, deleteCard } from "../api/cardApi";
+import { getCards, updateCard, deleteCard } from "../api/cardApi";
 import { updateDeck, deleteDeck } from "../api/deckApi";
 
 interface Card {
