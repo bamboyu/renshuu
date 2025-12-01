@@ -19,9 +19,6 @@ const DeckEditPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const [newFront, setNewFront] = useState("");
-  const [newBack, setNewBack] = useState("");
-
   // Fetch all cards in this deck
   const fetchCards = async () => {
     try {
