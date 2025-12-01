@@ -9,10 +9,13 @@ export interface CardData {
 }
 
 // function to create a new card
-export async function createCard(cardData: CardData) {
-  const res = await fetch("http://localhost:5000/api/cards", {
+export async function createCard(cardData: CardData, accessToken: string) {
+  const res = await fetch("http://localhost:5000/api/card", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
     body: JSON.stringify(cardData),
     credentials: "include",
   });
@@ -27,9 +30,12 @@ export async function createCard(cardData: CardData) {
 }
 
 // function to get cards by deckID
-export async function getCards(deckID: string) {
-  const res = await fetch(`http://localhost:5000/api/cards/${deckID}`, {
+export async function getCards(deckID: string, accessToken: string) {
+  const res = await fetch(`http://localhost:5000/api/card/${deckID}`, {
     method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
     credentials: "include",
   });
 
@@ -45,11 +51,15 @@ export async function getCards(deckID: string) {
 // function to update a card
 export async function updateCard(
   cardID: string,
-  updateData: Partial<CardData>
+  updateData: Partial<CardData>,
+  accessToken: string
 ) {
-  const res = await fetch(`http://localhost:5000/api/cards/${cardID}`, {
+  const res = await fetch(`http://localhost:5000/api/card/${cardID}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
     body: JSON.stringify(updateData),
     credentials: "include",
   });
@@ -63,10 +73,13 @@ export async function updateCard(
   return data;
 }
 
-// funtion to delete a card
-export async function deleteCard(cardID: string) {
-  const res = await fetch(`http://localhost:5000/api/cards/${cardID}`, {
+// function to delete a card
+export async function deleteCard(cardID: string, accessToken: string) {
+  const res = await fetch(`http://localhost:5000/api/card/${cardID}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
     credentials: "include",
   });
 
@@ -77,4 +90,21 @@ export async function deleteCard(cardID: string) {
   }
 
   return data;
+}
+
+// Get count of cards in one deck
+export async function getCardCount(deckID: string, accessToken: string) {
+  const res = await fetch(`http://localhost:5000/api/card/count/${deckID}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${accessToken}` },
+    credentials: "include",
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to fetch card count");
+  }
+
+  return data.count;
 }

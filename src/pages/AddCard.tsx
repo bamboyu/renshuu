@@ -49,14 +49,17 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
     }
 
     try {
-      await createCard({
-        deckID: selectedDeckID,
-        front,
-        back,
-        image,
-        sound,
-        tag,
-      });
+      await createCard(
+        {
+          deckID: selectedDeckID,
+          front,
+          back,
+          image,
+          sound,
+          tag,
+        },
+        accessToken
+      );
 
       alert("Card created successfully!");
     } catch (err: any) {

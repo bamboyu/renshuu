@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
+  const accessToken = localStorage.getItem("accessToken") || "";
   const { isAuthenticated } = useContext(AuthContext);
 
   return (
@@ -41,11 +42,7 @@ function App() {
             <Route path="/decks" element={<Decks />} />{" "}
             <Route
               path="/decks/add-card"
-              element={
-                <AddCard
-                  accessToken={localStorage.getItem("accessToken") || ""}
-                />
-              }
+              element={<AddCard accessToken={accessToken} />}
             />
           </>
         )}

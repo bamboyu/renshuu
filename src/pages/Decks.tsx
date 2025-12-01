@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DeckCard from "../components/Deck/DeckCard";
 import { getDecks, createDeck } from "../api/deckApi";
+import { getCardCount } from "../api/cardApi";
 
 interface Deck {
   _id: string;
@@ -11,16 +12,29 @@ interface Deck {
 
 const Decks = () => {
   const [decks, setDecks] = useState<Deck[]>([]);
+  const [cardCounts, setCardCounts] = useState<Record<string, number>>({}); // deckID -> count
+  const accessToken = localStorage.getItem("accessToken") || "";
 
   // fetch Decks
   useEffect(() => {
     async function fetchDecks() {
       try {
-        const token = localStorage.getItem("accessToken");
+        const token = accessToken;
         if (!token) return;
 
         const data = await getDecks(token);
         setDecks(data);
+
+        // Fetch card counts for each deck
+        const counts: Record<string, number> = {};
+        await Promise.all(
+          data.map(async (deck: any) => {
+            const count = await getCardCount(deck._id, accessToken);
+            counts[deck._id] = count;
+          })
+        );
+
+        setCardCounts(counts);
       } catch (err) {
         console.error("Error fetching decks:", err);
       }
@@ -59,7 +73,7 @@ const Decks = () => {
       <div className="row">
         {decks.map((deck) => (
           <div key={deck._id} className="mb-2">
-            <DeckCard deck={deck} />
+            <DeckCard deck={deck} cardCount={cardCounts[deck._id] || 0} />
           </div>
         ))}
       </div>

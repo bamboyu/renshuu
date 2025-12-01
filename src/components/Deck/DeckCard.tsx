@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-// Define the props for DeckCard component
 interface DeckCardProps {
   deck: {
     _id: string;
@@ -8,24 +7,43 @@ interface DeckCardProps {
     createdAt: string;
     updatedAt: string;
   };
+  cardCount: number; // number of cards in this deck
 }
 
-// DeckCard component to display individual deck information
-function DeckCard({ deck }: DeckCardProps) {
+function DeckCard({ deck, cardCount }: DeckCardProps) {
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    // Navigate to edit deck page
+    navigate(`/decks/${deck._id}/edit`);
+  };
+
   return (
     <div
-      className="card p-3 text-white"
+      className="card p-3 text-white mb-3"
       style={{
         backgroundColor: "#1f1f1f",
         borderRadius: "12px",
         border: "1px solid #333",
       }}
     >
-      <h4>{deck.name}</h4>
+      <div className="d-flex justify-content-between align-items-start mb-2">
+        <h4>{deck.name}</h4>
+        <span className="badge bg-secondary">{cardCount} cards</span>
+      </div>
 
-      <Link to={`/decks/${deck._id}`} className="btn btn-outline-primary w-100">
-        Open Deck
-      </Link>
+      <div className="d-flex gap-2">
+        <Link
+          to={`/decks/${deck._id}`}
+          className="btn btn-outline-primary flex-grow-1"
+        >
+          Open Deck
+        </Link>
+
+        <button className="btn btn-outline-warning" onClick={handleEdit}>
+          Edit
+        </button>
+      </div>
     </div>
   );
 }
