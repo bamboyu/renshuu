@@ -35,3 +35,39 @@ export async function createDeck(accessToken: string, name: string) {
 
   return res.json();
 }
+
+// Function to update a deck
+export async function updateDeck(
+  deckID: string,
+  name: string,
+  accessToken: string
+) {
+  const res = await fetch(`http://localhost:5000/api/deck/${deckID}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({ name }),
+    credentials: "include",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to update deck");
+  }
+  return res.json();
+}
+
+// Function to delete a deck
+export async function deleteDeck(deckID: string, accessToken: string) {
+  const res = await fetch(`http://localhost:5000/api/deck/${deckID}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: "include",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to delete deck");
+  }
+  return res.json();
+}
