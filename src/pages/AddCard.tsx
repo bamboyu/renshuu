@@ -38,6 +38,7 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
       }
     }
     fetchDecks();
+    navigate("/decks/add-card");
   }, [accessToken]);
 
   const handleSubmit = async (e: React.FormEvent) => {

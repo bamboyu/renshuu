@@ -12,7 +12,7 @@ interface Deck {
 
 const Decks = () => {
   const [decks, setDecks] = useState<Deck[]>([]);
-  const [cardCounts, setCardCounts] = useState<Record<string, number>>({}); // deckID -> count
+  const [cardCounts, setCardCounts] = useState<Record<string, number>>({});
   const accessToken = localStorage.getItem("accessToken") || "";
 
   // fetch Decks
