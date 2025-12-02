@@ -2,21 +2,42 @@ export interface CardData {
   deckID: string;
   front: string;
   back: string;
-  image?: string;
-  sound?: string;
+  image?: File | null;
+  sound?: File | null;
   tag?: "New" | "Learning" | "Relearning" | "Young" | "Mature";
   interval?: number;
 }
 
 // function to create a new card
 export async function createCard(cardData: CardData, accessToken: string) {
+  const formData = new FormData();
+
+  // append all fields
+  formData.append("deckID", cardData.deckID);
+  formData.append("front", cardData.front);
+  formData.append("back", cardData.back);
+
+  // image file
+  if (cardData.image) {
+    formData.append("image", cardData.image);
+  }
+
+  // sound file
+  if (cardData.sound) {
+    formData.append("sound", cardData.sound);
+  }
+
+  // tag
+  if (cardData.tag) {
+    formData.append("tag", cardData.tag);
+  }
+
   const res = await fetch("http://localhost:5000/api/card", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`, // keep token header
     },
-    body: JSON.stringify(cardData),
+    body: formData, // send as FormData
     credentials: "include",
   });
 
@@ -54,13 +75,32 @@ export async function updateCard(
   updateData: Partial<CardData>,
   accessToken: string
 ) {
+  const formData = new FormData();
+
+  // Only append fields that exist (partial update)
+  if (updateData.front !== undefined)
+    formData.append("front", updateData.front);
+  if (updateData.back !== undefined) formData.append("back", updateData.back);
+
+  // append files only if selected
+  if (updateData.image instanceof File) {
+    formData.append("image", updateData.image);
+  }
+
+  if (updateData.sound instanceof File) {
+    formData.append("sound", updateData.sound);
+  }
+
+  if (updateData.tag) {
+    formData.append("tag", updateData.tag);
+  }
+
   const res = await fetch(`http://localhost:5000/api/card/${cardID}`, {
     method: "PUT",
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
-    body: JSON.stringify(updateData),
+    body: formData,
     credentials: "include",
   });
 

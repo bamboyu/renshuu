@@ -8,6 +8,8 @@ interface Card {
   front: string;
   back: string;
   tag: string;
+  image?: string; // URL or path
+  sound?: string; // URL or path
 }
 
 // StudyPage component
@@ -39,6 +41,14 @@ const Review = () => {
     fetchNextCard();
   }, [deckID]);
 
+  // Play sound
+  const handlePlaySound = () => {
+    if (card?.sound) {
+      const audio = new Audio(card.sound);
+      audio.play();
+    }
+  };
+
   // Handle rating submission
   const handleRating = async (rating: number) => {
     if (!card) return;
@@ -56,7 +66,7 @@ const Review = () => {
   if (!card)
     return (
       <div
-        className="d-flex justify-content-center mt-4"
+        className="d-flex justify-content-center align-items-center"
         style={{ height: "80vh", color: "white", fontSize: "2rem" }}
       >
         No cards due for review!
@@ -71,7 +81,22 @@ const Review = () => {
         className="card p-4 text-white text-center"
         style={{ backgroundColor: "#1f1f1f", borderRadius: "12px" }}
       >
+        {/* Front / Back */}
         <h5 className="mb-3">{showBack ? card.back : card.front}</h5>
+
+        {/* Image */}
+        {showBack && card.image && (
+          <div className="mb-3 text-center">
+            <img
+              src={card.image}
+              alt="Card visual"
+              className="img-fluid rounded"
+              style={{ maxHeight: "400px" }}
+            />
+          </div>
+        )}
+
+        {/* Show Answer Button */}
         {!showBack && (
           <button
             className="btn btn-outline-light mb-3"
@@ -81,9 +106,18 @@ const Review = () => {
           </button>
         )}
 
+        {/* Play Sound Button */}
+        {showBack && card.sound && (
+          <div className="mb-3">
+            <button className="btn btn-info" onClick={handlePlaySound}>
+              🔊 Play Sound
+            </button>
+          </div>
+        )}
+
         {/* Rating Buttons */}
         {showBack && (
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between mt-3">
             <button className="btn btn-danger" onClick={() => handleRating(0)}>
               Again
             </button>

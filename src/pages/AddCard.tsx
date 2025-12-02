@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { createCard } from "../api/cardApi";
 import { getDecks } from "../api/deckApi";
 
@@ -13,14 +12,12 @@ interface AddCardPageProps {
 }
 
 export default function AddCardPage({ accessToken }: AddCardPageProps) {
-  const navigate = useNavigate();
-
   const [decks, setDecks] = useState<Deck[]>([]);
   const [selectedDeckID, setSelectedDeckID] = useState<string>("");
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
-  const [image, setImage] = useState("");
-  const [sound, setSound] = useState("");
+  const [image, setImage] = useState<File | null>(null); // now a File
+  const [sound, setSound] = useState<File | null>(null); // now a File
   const [tag, setTag] = useState<
     "New" | "Learning" | "Relearning" | "Young" | "Mature"
   >("New");
@@ -38,9 +35,9 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
       }
     }
     fetchDecks();
-    navigate("/decks/add-card");
   }, [accessToken]);
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -55,14 +52,20 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
           deckID: selectedDeckID,
           front,
           back,
-          image,
-          sound,
+          image, // file upload
+          sound, // file upload
           tag,
         },
         accessToken
       );
 
       alert("Card created successfully!");
+      // optionally reset form or navigate
+      setFront("");
+      setBack("");
+      setImage(null);
+      setSound(null);
+      setTag("New");
     } catch (err: any) {
       console.error(err);
       alert(err.message || "Failed to add card");
@@ -115,25 +118,29 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
           />
         </div>
 
-        {/* Image URL */}
+        {/* Image File */}
         <div className="mb-3">
-          <label className="form-label">Image URL (Optional)</label>
+          <label className="form-label">Image (Optional)</label>
           <input
-            type="text"
+            type="file"
             className="form-control"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            accept="image/*"
+            onChange={(e) =>
+              setImage(e.target.files ? e.target.files[0] : null)
+            }
           />
         </div>
 
-        {/* Sound URL */}
+        {/* Sound File */}
         <div className="mb-3">
-          <label className="form-label">Sound URL (Optional)</label>
+          <label className="form-label">Sound (Optional)</label>
           <input
-            type="text"
+            type="file"
             className="form-control"
-            value={sound}
-            onChange={(e) => setSound(e.target.value)}
+            accept="audio/*"
+            onChange={(e) =>
+              setSound(e.target.files ? e.target.files[0] : null)
+            }
           />
         </div>
 
