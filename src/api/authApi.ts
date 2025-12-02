@@ -1,3 +1,4 @@
+// Function to login user
 export async function loginUser(email: string, password: string) {
   const res = await fetch("http://localhost:5000/api/auth/login", {
     method: "POST",
@@ -15,6 +16,7 @@ export async function loginUser(email: string, password: string) {
   return data;
 }
 
+// Function to signup user
 export async function signupUser(email: string, password: string) {
   try {
     const res = await fetch("http://localhost:5000/api/auth/signup", {
@@ -38,6 +40,7 @@ export async function signupUser(email: string, password: string) {
   }
 }
 
+// Function to logout user
 export async function logoutUser() {
   try {
     const res = await fetch("http://localhost:5000/api/auth/logout", {
@@ -56,13 +59,4 @@ export async function logoutUser() {
     console.error(err);
     alert("Logout failed. Check console for details.");
   }
-}
-
-export async function refreshAccessToken() {
-  const res = await fetch("http://localhost:5000/api/auth/token", {
-    method: "POST",
-    credentials: "include",
-  });
-
-  return res.json();
 }

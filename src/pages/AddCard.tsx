@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { createCard } from "../api/cardApi";
 import { getDecks } from "../api/deckApi";
+import { generateBack, generateImage } from "../api/generateApi";
 
 interface Deck {
   _id: string;
@@ -21,12 +22,14 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
   const [tag, setTag] = useState<
     "New" | "Learning" | "Relearning" | "Young" | "Mature"
   >("New");
+  const [loadingBack, setLoadingBack] = useState(false);
+  const [loadingImage, setLoadingImage] = useState(false);
 
   // Fetch decks on mount
   useEffect(() => {
     async function fetchDecks() {
       try {
-        const data = await getDecks(accessToken);
+        const data = await getDecks();
         setDecks(data);
         if (data.length > 0) setSelectedDeckID(data[0]._id);
       } catch (err: any) {
@@ -36,6 +39,43 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
     }
     fetchDecks();
   }, [accessToken]);
+
+  // Generate back text
+  const handleGenerateBack = async () => {
+    if (!front) {
+      alert("Please enter the front text first");
+      return;
+    }
+    try {
+      setLoadingBack(true);
+      const generatedBack = await generateBack(front, accessToken);
+      setBack(generatedBack);
+    } catch (err: any) {
+      console.error(err);
+      alert("Failed to generate back");
+    } finally {
+      setLoadingBack(false);
+    }
+  };
+
+  // Generate image
+  const handleGenerateImage = async () => {
+    if (!front) {
+      alert("Please enter the front text first");
+      return;
+    }
+    try {
+      setLoadingImage(true);
+      const generatedImageUrl = await generateImage(front, accessToken);
+      // Store the S3 URL directly
+      setImage(generatedImageUrl);
+    } catch (err: any) {
+      console.error(err);
+      alert("Failed to generate image");
+    } finally {
+      setLoadingImage(false);
+    }
+  };
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -52,7 +92,7 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
           deckID: selectedDeckID,
           front,
           back,
-          image,
+          image: typeof image === "string" ? image : image,
           sound,
           tag,
         },
@@ -116,6 +156,14 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
             onChange={(e) => setBack(e.target.value)}
             required
           />
+          <button
+            type="button"
+            className="btn btn-secondary mt-2"
+            onClick={handleGenerateBack}
+            disabled={loadingBack}
+          >
+            {loadingBack ? "Generating..." : "Generate Back"}
+          </button>
         </div>
 
         {/* Image File */}
@@ -129,6 +177,28 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
               setImage(e.target.files ? e.target.files[0] : null)
             }
           />
+          <button
+            type="button"
+            className="btn btn-secondary mt-2"
+            onClick={handleGenerateImage}
+            disabled={loadingImage}
+          >
+            {loadingImage ? "Generating..." : "Generate Image"}
+          </button>
+          {/* Show generated image preview */}
+          {image && typeof image === "string" && (
+            <div className="mt-3 text-center">
+              <img
+                src={image}
+                alt="Generated"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "300px",
+                  borderRadius: "8px",
+                }}
+              />
+            </div>
+          )}
         </div>
 
         {/* Sound File */}

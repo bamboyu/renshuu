@@ -12,15 +12,10 @@ export default function Navbar() {
 
     // Clear tokens and auth state
     localStorage.removeItem("accessToken");
-    setAuth("", "");
+    localStorage.removeItem("userID");
+    setAuth(null, null);
 
-    // Call logout function
-    try {
-      await logoutUser();
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-    }
+    navigate("/");
   };
 
   return (

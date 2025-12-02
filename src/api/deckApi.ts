@@ -1,19 +1,18 @@
 const userID = localStorage.getItem("userID") || "";
 
 // Function to get decks from the API
-export async function getDecks(accessToken: string) {
-  const res = await fetch(`http://localhost:5000/api/deck/${userID}`, {
+export async function getDecks() {
+  const token = localStorage.getItem("accessToken");
+
+  const res = await fetch("http://localhost:5000/api/deck", {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    credentials: "include",
   });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch decks");
-  }
-
+  if (!res.ok) throw new Error("Failed to fetch decks");
   return res.json();
 }
 
