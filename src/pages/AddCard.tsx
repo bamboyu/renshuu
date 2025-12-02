@@ -16,8 +16,8 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
   const [selectedDeckID, setSelectedDeckID] = useState<string>("");
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
-  const [image, setImage] = useState<File | null>(null); // now a File
-  const [sound, setSound] = useState<File | null>(null); // now a File
+  const [image, setImage] = useState<File | null>(null);
+  const [sound, setSound] = useState<File | null>(null);
   const [tag, setTag] = useState<
     "New" | "Learning" | "Relearning" | "Young" | "Mature"
   >("New");
@@ -52,8 +52,8 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
           deckID: selectedDeckID,
           front,
           back,
-          image, // file upload
-          sound, // file upload
+          image,
+          sound,
           tag,
         },
         accessToken

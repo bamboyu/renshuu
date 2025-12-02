@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCards, updateCard, deleteCard } from "../api/cardApi";
+import { getCard, updateCard, deleteCard } from "../api/cardApi";
 
 const CardEditPage = () => {
   const { cardID } = useParams<{ cardID: string }>();
@@ -9,21 +9,21 @@ const CardEditPage = () => {
 
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
+  const [image, setImage] = useState<File | null>(null);
+  const [sound, setSound] = useState<File | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Fetch card details on mount
   useEffect(() => {
-    // Fetch card details
     async function fetchCard() {
       try {
-        const cards = await getCards("", accessToken);
-        const card = cards.find((c: any) => c._id === cardID);
-        if (card) {
-          setFront(card.front);
-          setBack(card.back);
-        }
+        const card = await getCard(cardID!, accessToken);
+        setFront(card.front);
+        setBack(card.back);
         setLoading(false);
       } catch (err) {
         console.error(err);
+        setLoading(false);
       }
     }
     fetchCard();
@@ -32,7 +32,16 @@ const CardEditPage = () => {
   // Handle update
   const handleUpdate = async () => {
     try {
-      await updateCard(cardID!, { front, back }, accessToken);
+      await updateCard(
+        cardID!,
+        {
+          front,
+          back,
+          image,
+          sound,
+        },
+        accessToken
+      );
       alert("Card updated!");
       navigate(-1); // go back to deck edit page
     } catch (err) {
@@ -54,14 +63,13 @@ const CardEditPage = () => {
     }
   };
 
-  // Rendering
   if (loading) return <div className="text-white">Loading...</div>;
 
   return (
     <div className="container mt-4">
       <h2 className="text-white mb-3">Edit Card</h2>
 
-      {/* Front Textarea */}
+      {/* Front */}
       <div className="mb-3">
         <label className="form-label text-white">Front</label>
         <textarea
@@ -72,7 +80,7 @@ const CardEditPage = () => {
         />
       </div>
 
-      {/* Back Textarea */}
+      {/* Back */}
       <div className="mb-3">
         <label className="form-label text-white">Back</label>
         <textarea
@@ -83,7 +91,29 @@ const CardEditPage = () => {
         />
       </div>
 
-      {/* Update and delete */}
+      {/* Image */}
+      <div className="mb-3">
+        <label className="form-label text-white">Image (Optional)</label>
+        <input
+          type="file"
+          className="form-control"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
+        />
+      </div>
+
+      {/* Sound */}
+      <div className="mb-3">
+        <label className="form-label text-white">Sound (Optional)</label>
+        <input
+          type="file"
+          className="form-control"
+          accept="audio/*"
+          onChange={(e) => setSound(e.target.files ? e.target.files[0] : null)}
+        />
+      </div>
+
+      {/* Update / Delete */}
       <div className="d-flex gap-2">
         <button className="btn btn-primary flex-grow-1" onClick={handleUpdate}>
           Update

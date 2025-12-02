@@ -69,6 +69,25 @@ export async function getCards(deckID: string, accessToken: string) {
   return data;
 }
 
+// Function to get a single card by cardID
+export async function getCard(cardID: string, accessToken: string) {
+  const res = await fetch(`http://localhost:5000/api/card/single/${cardID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: "include",
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to fetch card");
+  }
+
+  return data;
+}
+
 // function to update a card
 export async function updateCard(
   cardID: string,
