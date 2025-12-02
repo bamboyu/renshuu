@@ -82,7 +82,12 @@ const Decks = () => {
         <h2 className="text-white">Your Decks</h2>
       </div>
       {loading && decks.length === 0 ? (
-        <div className="text-white">Loading...</div>
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "50vh", color: "white" }}
+        >
+          Loading...
+        </div>
       ) : (
         <div className="row">
           {decks.map((deck) => (

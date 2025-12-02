@@ -63,7 +63,15 @@ const CardEditPage = () => {
     }
   };
 
-  if (loading) return <div className="text-white">Loading...</div>;
+  if (loading)
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "50vh", color: "white" }}
+      >
+        Loading...
+      </div>
+    );
 
   return (
     <div className="container mt-4">

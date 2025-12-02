@@ -18,14 +18,18 @@ export async function generateBack(front: string, accessToken: string) {
 }
 
 // Function to generate an image based on the front text
-export async function generateImage(front: string, accessToken: string) {
+export async function generateImage(
+  front: string,
+  accessToken: string,
+  cardID?: string
+) {
   const res = await fetch("http://localhost:5000/api/generate/image", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
-    body: JSON.stringify({ front }),
+    body: JSON.stringify({ front, cardID }),
     credentials: "include",
   });
   const data = await res.json();

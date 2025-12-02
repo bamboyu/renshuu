@@ -62,7 +62,15 @@ const DeckEditPage = () => {
     }
   };
 
-  if (loading) return <div className="text-white">Loading...</div>;
+  if (loading)
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "50vh", color: "white" }}
+      >
+        Loading...
+      </div>
+    );
   if (error) return <div className="alert alert-danger">{error}</div>;
 
   return (

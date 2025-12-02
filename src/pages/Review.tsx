@@ -62,7 +62,15 @@ const Review = () => {
     }
   };
 
-  if (loading) return <div className="text-white">Loading...</div>;
+  if (loading)
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "50vh", color: "white" }}
+      >
+        Loading...
+      </div>
+    );
   if (!card)
     return (
       <div
