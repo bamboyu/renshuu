@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { getCards } from "../api/cardApi";
 import { updateDeck, deleteDeck } from "../api/deckApi";
@@ -33,6 +33,31 @@ const DeckEditPage = () => {
       setLoading(false);
     }
   };
+
+  // Calculate Stats
+  const stats = useMemo(() => {
+    const counts = {
+      New: 0,
+      Learning: 0,
+      Young: 0,
+      Mature: 0,
+    };
+
+    cards.forEach((card) => {
+      // If tag is missing or invalid, count as 'New'
+      const tag = (card.tag || "New") as keyof typeof counts;
+
+      // Increment count if key exists
+      if (counts[tag] !== undefined) {
+        counts[tag]++;
+      } else {
+        // Fallback for unexpected tags
+        counts.New++;
+      }
+    });
+
+    return counts;
+  }, [cards]);
 
   useEffect(() => {
     fetchCards();
@@ -94,6 +119,43 @@ const DeckEditPage = () => {
         </button>
       </div>
 
+      {/* Stats */}
+      <h5 className="text-white mb-3">Statistics</h5>
+      <div className="row g-2 mb-4">
+        {Object.entries(stats).map(([key, value]) => (
+          <div
+            key={key}
+            className="col-6 col-md-auto"
+            style={{ minWidth: "120px" }}
+          >
+            <div
+              className={`card text-white border-${getTagColor(key)}`}
+              style={{ backgroundColor: "#2b2b2b" }}
+            >
+              <div className="card-body p-2 text-center">
+                <span className={`badge bg-${getTagColor(key)} mb-1`}>
+                  {key}
+                </span>
+                <h4 className="m-0">{value}</h4>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Total Count */}
+        <div className="col-6 col-md-auto" style={{ minWidth: "120px" }}>
+          <div
+            className="card text-white border-light"
+            style={{ backgroundColor: "#2b2b2b" }}
+          >
+            <div className="card-body p-2 text-center">
+              <span className="badge bg-light text-dark mb-1">Total</span>
+              <h4 className="m-0">{cards.length}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Cards List */}
       <h5 className="text-white mb-2">Cards</h5>
       {cards.map((card) => (
@@ -135,8 +197,6 @@ function getTagColor(tag?: string) {
       return "secondary";
     case "Learning":
       return "warning";
-    case "Relearning":
-      return "info";
     case "Young":
       return "primary";
     case "Mature":

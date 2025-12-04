@@ -10,7 +10,7 @@ export async function getNextCard(deckID: string, accessToken: string) {
 
   if (!res.ok) throw new Error("Failed to get next card");
 
-  return res.json(); // { card: {...} }
+  return res.json();
 }
 
 // Function to submit SM-2 rating
