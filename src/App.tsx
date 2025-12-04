@@ -12,6 +12,7 @@ import { AuthContext } from "./context/AuthContext";
 import Review from "./pages/Review";
 import DeckEditPage from "./pages/DeckEditPage";
 import CardEditPage from "./pages/CardEditPage";
+import AccountSettingsPage from "./pages/AccountSettingPage";
 
 function App() {
   const accessToken = localStorage.getItem("accessToken") || "";
@@ -50,6 +51,7 @@ function App() {
             <Route path="/review/:deckID" element={<Review />} />
             <Route path="/decks/:deckID/edit" element={<DeckEditPage />} />
             <Route path="/decks/edit-card/:cardID" element={<CardEditPage />} />
+            <Route path="/account" element={<AccountSettingsPage />} />
           </>
         )}
         <Route path="*" element={<NotFound />} />

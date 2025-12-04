@@ -60,3 +60,23 @@ export async function logoutUser() {
     alert("Logout failed. Check console for details.");
   }
 }
+
+// Function to update user account
+export async function updateUser(userData: any, accessToken: string) {
+  const res = await fetch("http://localhost:5000/api/auth/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(userData),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Update failed");
+  }
+
+  return data;
+}
