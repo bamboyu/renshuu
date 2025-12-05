@@ -1,14 +1,13 @@
+import { API_URL } from "../config";
+
 // Function to login user
 export async function loginUser(email: string, password: string) {
-  const res = await fetch(
-    "https://renshuu-backend.onrender.com/api/auth/login",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-      credentials: "include",
-    }
-  );
+  const res = await fetch(`${API_URL}/api/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+    credentials: "include",
+  });
 
   const data = await res.json();
 
@@ -22,15 +21,12 @@ export async function loginUser(email: string, password: string) {
 // Function to signup user
 export async function signupUser(email: string, password: string) {
   try {
-    const res = await fetch(
-      "https://renshuu-backend.onrender.com/api/auth/signup",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-        credentials: "include",
-      }
-    );
+    const res = await fetch(`${API_URL}/api/auth/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+      credentials: "include",
+    });
 
     const data = await res.json();
 
@@ -49,14 +45,11 @@ export async function signupUser(email: string, password: string) {
 // Function to logout user
 export async function logoutUser() {
   try {
-    const res = await fetch(
-      "https://renshuu-backend.onrender.com/api/auth/logout",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      }
-    );
+    const res = await fetch(`${API_URL}/api/auth/logout`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
 
     const data = await res.json();
 
@@ -72,17 +65,14 @@ export async function logoutUser() {
 
 // Function to update user account
 export async function updateUser(userData: any, accessToken: string) {
-  const res = await fetch(
-    "https://renshuu-backend.onrender.com/api/auth/update",
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(userData),
-    }
-  );
+  const res = await fetch(`${API_URL}/api/auth/update`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(userData),
+  });
 
   const data = await res.json();
 
