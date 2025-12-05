@@ -32,7 +32,7 @@ export async function createCard(cardData: CardData, accessToken: string) {
     formData.append("tag", cardData.tag);
   }
 
-  const res = await fetch("http://localhost:5000/api/card", {
+  const res = await fetch("https://renshuu-backend.onrender.com/api/card", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`, // keep token header
@@ -52,13 +52,16 @@ export async function createCard(cardData: CardData, accessToken: string) {
 
 // function to get cards by deckID
 export async function getCards(deckID: string, accessToken: string) {
-  const res = await fetch(`http://localhost:5000/api/card/${deckID}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: "include",
-  });
+  const res = await fetch(
+    `https://renshuu-backend.onrender.com/api/card/${deckID}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    }
+  );
 
   const data = await res.json();
 
@@ -71,13 +74,16 @@ export async function getCards(deckID: string, accessToken: string) {
 
 // Function to get a single card by cardID
 export async function getCard(cardID: string, accessToken: string) {
-  const res = await fetch(`http://localhost:5000/api/card/single/${cardID}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: "include",
-  });
+  const res = await fetch(
+    `https://renshuu-backend.onrender.com/card/single/${cardID}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    }
+  );
 
   const data = await res.json();
 
@@ -114,14 +120,17 @@ export async function updateCard(
     formData.append("tag", updateData.tag);
   }
 
-  const res = await fetch(`http://localhost:5000/api/card/${cardID}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: formData,
-    credentials: "include",
-  });
+  const res = await fetch(
+    `https://renshuu-backend.onrender.com/api/card/${cardID}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: formData,
+      credentials: "include",
+    }
+  );
 
   const data = await res.json();
 
@@ -134,13 +143,16 @@ export async function updateCard(
 
 // function to delete a card
 export async function deleteCard(cardID: string, accessToken: string) {
-  const res = await fetch(`http://localhost:5000/api/card/${cardID}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: "include",
-  });
+  const res = await fetch(
+    `https://renshuu-backend.onrender.com/api/card/${cardID}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    }
+  );
 
   const data = await res.json();
 
@@ -153,11 +165,14 @@ export async function deleteCard(cardID: string, accessToken: string) {
 
 // Get count of cards in one deck
 export async function getCardCount(deckID: string, accessToken: string) {
-  const res = await fetch(`http://localhost:5000/api/card/count/${deckID}`, {
-    method: "GET",
-    headers: { Authorization: `Bearer ${accessToken}` },
-    credentials: "include",
-  });
+  const res = await fetch(
+    `https://renshuu-backend.onrender.com/api/card/count/${deckID}`,
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${accessToken}` },
+      credentials: "include",
+    }
+  );
 
   const data = await res.json();
 

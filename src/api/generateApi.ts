@@ -1,14 +1,17 @@
 // Function to generate image via API
 export async function generateBack(front: string, accessToken: string) {
-  const res = await fetch("http://localhost:5000/api/generate/back", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify({ front }),
-    credentials: "include",
-  });
+  const res = await fetch(
+    "https://renshuu-backend.onrender.com/api/generate/back",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ front }),
+      credentials: "include",
+    }
+  );
   const data = await res.json();
 
   if (!res.ok) {
@@ -23,15 +26,18 @@ export async function generateImage(
   accessToken: string,
   cardID?: string
 ) {
-  const res = await fetch("http://localhost:5000/api/generate/image", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify({ front, cardID }),
-    credentials: "include",
-  });
+  const res = await fetch(
+    "https://renshuu-backend.onrender.com/api/generate/image",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ front, cardID }),
+      credentials: "include",
+    }
+  );
   const data = await res.json();
   if (!res.ok) {
     throw new Error(data.message || "Failed to generate image");

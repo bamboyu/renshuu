@@ -1,12 +1,15 @@
 // Function to get next due card
 export async function getNextCard(deckID: string, accessToken: string) {
-  const res = await fetch(`http://localhost:5000/api/study/${deckID}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: "include",
-  });
+  const res = await fetch(
+    `https://renshuu-backend.onrender.com/api/study/${deckID}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    }
+  );
 
   if (!res.ok) throw new Error("Failed to get next card");
 
@@ -19,15 +22,18 @@ export async function reviewCard(
   rating: number,
   accessToken: string
 ) {
-  const res = await fetch(`http://localhost:5000/api/study/review/${cardID}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify({ rating }),
-    credentials: "include",
-  });
+  const res = await fetch(
+    `https://renshuu-backend.onrender.com/api/study/review/${cardID}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ rating }),
+      credentials: "include",
+    }
+  );
 
   if (!res.ok) throw new Error("Failed to review card");
 
