@@ -1,8 +1,8 @@
 /* Container for all kana groups */
 .kana-container-wrapper {
   display: flex;
-  padding-top: 50px; /* spacing from top */
-  width: 100%; /* full width wrapper */
+  padding-top: 50px;
+  width: 100%;
   align-items: center;
   flex-direction: column;
 }
@@ -24,18 +24,18 @@
 
 /* Each group (A, KA, SA...) */
 .kana-group {
-  display: flex; /* flex container */
-  flex-direction: column; /* vertical stacking */
-  justify-content: center; /* center items vertically */
-  align-items: center; /* center items horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   max-width: 2rem;
 }
 
 /* Row of kana in the group */
 .kana-row {
   display: flex;
-  gap: 0.3rem; /* space between kana items */
-  flex-wrap: wrap; /* wrap to next line if too long */
+  gap: 0.3rem;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   max-width: 100%;
@@ -55,7 +55,7 @@
 
 /* Kana character styling */
 .kana-character {
-  font-size: 1.3rem; /* bigger character */
+  font-size: 1.3rem;
   text-align: center;
 }
 

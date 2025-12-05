@@ -13,12 +13,12 @@ export default function Navbar() {
   // Toggle the collapse
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
-  // Close nav when an item is clicked (good UX for mobile)
+  // Close nav when an item is clicked
   const closeNav = () => setIsNavCollapsed(true);
 
   const handleLogout = (e: React.FormEvent) => {
     e.preventDefault();
-    closeNav(); // Close menu on logout
+    closeNav();
 
     // Clear tokens and auth state
     localStorage.removeItem("accessToken");
@@ -68,10 +68,6 @@ export default function Navbar() {
             style={{ filter: "invert(1)" }}
           ></span>
         </button>
-
-        {/* Conditionally add the 'show' class based on React state.
-           Bootstrap CSS handles the desktop view automatically (ignoring 'collapse' on large screens).
-        */}
         <div
           className={`collapse navbar-collapse ${
             !isNavCollapsed ? "show" : ""
