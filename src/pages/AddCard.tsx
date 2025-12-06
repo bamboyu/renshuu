@@ -19,9 +19,6 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
   const [back, setBack] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [sound, setSound] = useState<File | null>(null);
-  const [tag, setTag] = useState<
-    "New" | "Learning" | "Relearning" | "Young" | "Mature"
-  >("New");
   const [loadingBack, setLoadingBack] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
 
@@ -104,7 +101,6 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
       setBack("");
       setImage(null);
       setSound(null);
-      setTag("New");
     } catch (err: any) {
       console.error(err);
       alert(err.message || "Failed to add card");
