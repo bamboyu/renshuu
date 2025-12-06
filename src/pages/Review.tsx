@@ -183,9 +183,13 @@ const Review = () => {
         <div className="card-body d-flex flex-column justify-content-between">
           <div>
             {/* Front / Back Text */}
-            <h3 className="mb-4 display-6">
-              {showBack ? card.back : card.front}
-            </h3>
+            <h3 className="mb-4 display-6">{card.front}</h3>
+            {showBack && (
+              <div>
+                <hr className="border-secondary my-4" />
+                <h3 className="mb-4 display-6">{card.back}</h3>
+              </div>
+            )}
 
             {/* Image */}
             {showBack && card.image && (

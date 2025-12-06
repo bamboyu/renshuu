@@ -7,12 +7,14 @@ import Signup from "./pages/Signup";
 import Decks from "./pages/Decks";
 import AddCard from "./pages/AddCard";
 import NotFound from "./pages/NotFound";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
 import Review from "./pages/Review";
 import DeckEditPage from "./pages/DeckEditPage";
 import CardEditPage from "./pages/CardEditPage";
 import AccountSettingsPage from "./pages/AccountSettingPage";
+import Home from "./pages/Home";
+import Resources from "./pages/Resources";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const accessToken = localStorage.getItem("accessToken") || "";
@@ -25,20 +27,11 @@ function App() {
 
       {/* ROUTES */}
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="text-center mt-5">
-              <h1>Welcome to Renshuu!</h1>
-              <Link to="/learn/kana" className="btn btn-primary mt-5">
-                Practice Kana
-              </Link>
-            </div>
-          }
-        />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/learn/kana" element={<LearnKana />} />
+        <Route path="/learn/resources" element={<Resources />} />
 
         {/* Check for authentication */}
         {isAuthenticated && (

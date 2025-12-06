@@ -94,13 +94,12 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
           back,
           image: typeof image === "string" ? image : image,
           sound,
-          tag,
         },
         accessToken
       );
 
       alert("Card created successfully!");
-      // optionally reset form or navigate
+      // Clear form
       setFront("");
       setBack("");
       setImage(null);
@@ -113,15 +112,19 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
   };
 
   return (
-    <div className="container mt-4 bg-opacity-75" style={{ maxWidth: "700px" }}>
-      <h2 className="mb-4 text-center">Add New Card</h2>
+    <div className="container mt-4" style={{ maxWidth: "700px" }}>
+      <h2 className="mb-4 text-center text-white">Add New Card</h2>
 
-      <form className="card p-4 shadow" onSubmit={handleSubmit}>
+      <form
+        className="card p-4 shadow bg-dark text-white border-secondary"
+        onSubmit={handleSubmit}
+        style={{ borderRadius: "12px" }}
+      >
         {/* Select Deck */}
         <div className="mb-3">
-          <label className="form-label">Select Deck</label>
+          <label className="form-label text-white">Select Deck</label>
           <select
-            className="form-select"
+            className="form-select bg-dark text-white border-secondary"
             value={selectedDeckID}
             onChange={(e) => setSelectedDeckID(e.target.value)}
             required
@@ -136,9 +139,9 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
 
         {/* Front */}
         <div className="mb-3">
-          <label className="form-label">Front (Question)</label>
+          <label className="form-label text-white">Front (Question)</label>
           <textarea
-            className="form-control"
+            className="form-control bg-dark text-white border-secondary"
             rows={3}
             value={front}
             onChange={(e) => setFront(e.target.value)}
@@ -148,9 +151,9 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
 
         {/* Back */}
         <div className="mb-3">
-          <label className="form-label">Back (Answer)</label>
+          <label className="form-label text-white">Back (Answer)</label>
           <textarea
-            className="form-control"
+            className="form-control bg-dark text-white border-secondary"
             rows={3}
             value={back}
             onChange={(e) => setBack(e.target.value)}
@@ -158,20 +161,20 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
           />
           <button
             type="button"
-            className="btn btn-secondary mt-2"
+            className="btn btn-outline-light mt-2"
             onClick={handleGenerateBack}
             disabled={loadingBack}
           >
-            {loadingBack ? "Generating..." : "Generate Back"}
+            {loadingBack ? "Generating..." : "Generate Back (AI)"}
           </button>
         </div>
 
         {/* Image File */}
         <div className="mb-3">
-          <label className="form-label">Image (Optional)</label>
+          <label className="form-label text-white">Image (Optional)</label>
           <input
             type="file"
-            className="form-control"
+            className="form-control bg-dark text-white border-secondary"
             accept="image/*"
             onChange={(e) =>
               setImage(e.target.files ? e.target.files[0] : null)
@@ -179,12 +182,13 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
           />
           <button
             type="button"
-            className="btn btn-secondary mt-2"
+            className="btn btn-outline-light mt-2"
             onClick={handleGenerateImage}
             disabled={loadingImage}
           >
-            {loadingImage ? "Generating..." : "Generate Image"}
+            {loadingImage ? "Generating..." : "Generate Image (AI)"}
           </button>
+
           {/* Show generated image preview */}
           {image && typeof image === "string" && (
             <div className="mt-3 text-center">
@@ -195,6 +199,7 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
                   maxWidth: "100%",
                   maxHeight: "300px",
                   borderRadius: "8px",
+                  border: "1px solid #555",
                 }}
               />
             </div>
@@ -203,31 +208,15 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
 
         {/* Sound File */}
         <div className="mb-3">
-          <label className="form-label">Sound (Optional)</label>
+          <label className="form-label text-white">Sound (Optional)</label>
           <input
             type="file"
-            className="form-control"
+            className="form-control bg-dark text-white border-secondary"
             accept="audio/*"
             onChange={(e) =>
               setSound(e.target.files ? e.target.files[0] : null)
             }
           />
-        </div>
-
-        {/* Tag */}
-        <div className="mb-3">
-          <label className="form-label">Tag</label>
-          <select
-            className="form-select"
-            value={tag}
-            onChange={(e) => setTag(e.target.value as any)}
-          >
-            <option value="New">New</option>
-            <option value="Learning">Learning</option>
-            <option value="Relearning">Relearning</option>
-            <option value="Young">Young</option>
-            <option value="Mature">Mature</option>
-          </select>
         </div>
 
         <button type="submit" className="btn btn-primary w-100">
