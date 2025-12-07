@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getNextCard, reviewCard } from "../api/studyApi";
-import { getCards } from "../api/cardApi"; // Import getCards to calculate stats
+import { getNextCard, reviewCard } from "../../api/studyApi";
+import { getCards } from "../../api/cardApi"; // Import getCards to calculate stats
 
 // Card interface
 interface Card {

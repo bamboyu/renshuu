@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { getCards } from "../api/cardApi";
-import { updateDeck, deleteDeck } from "../api/deckApi";
+import { getCards } from "../../api/cardApi";
+import { updateDeck, deleteDeck } from "../../api/deckApi";
 
 interface Card {
   _id: string;
@@ -65,6 +65,11 @@ const DeckEditPage = () => {
 
   // Update deck name
   const handleUpdateDeck = async () => {
+    if (!deckName.trim()) {
+      alert("Deck name cannot be empty");
+      return;
+    }
+
     try {
       await updateDeck(deckID!, deckName, accessToken);
       alert("Deck updated!");

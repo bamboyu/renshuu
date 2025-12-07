@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCard, updateCard, deleteCard } from "../api/cardApi";
+import { getCard, updateCard, deleteCard } from "../../api/cardApi";
 
 const CardEditPage = () => {
   const { cardID } = useParams<{ cardID: string }>();

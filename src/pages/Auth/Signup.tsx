@@ -1,28 +1,25 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { loginUser } from "../api/authApi";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signupUser } from "../../api/authApi";
 
-function Login() {
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Call login function
+    // Check passwords match
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
     try {
-      const data = await loginUser(email, password);
-
-      // Store token and userID in localStorage
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("userID", data.user.id);
-
-      setAuth(data.accessToken, data.user.id);
-
-      navigate("/");
+      // call signup function
+      await signupUser(email, password);
+      navigate("/login");
     } catch (err: any) {
       alert(err.message);
       console.error(err);
@@ -30,8 +27,8 @@ function Login() {
   };
 
   return (
-    // Login Form
-    <div className="d-flex justify-content-center align-items-center mt-5">
+    // Signup Form
+    <div className="d-flex justify-content-center mt-5">
       <div
         className="card p-4"
         style={{
@@ -40,7 +37,7 @@ function Login() {
           backgroundColor: "#202020ff",
         }}
       >
-        <h2 className="text-center text-white mb-4">Login</h2>
+        <h2 className="text-center text-white mb-4">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label text-white">Email</label>
@@ -62,27 +59,24 @@ function Login() {
               required
             />
           </div>
+          <div className="mb-3">
+            <label className="form-label text-white">Confirm Password</label>
+            <input
+              type="password"
+              className="form-control bg-dark text-light border-secondary"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
           <button type="submit" className="btn btn-primary w-100">
-            Login
+            Sign Up
           </button>
         </form>
-        {/* Forgot Password Link */}
-        <div className="text-end mt-1">
-          <Link
-            to="/forgot-password"
-            style={{
-              fontSize: "0.85rem",
-              color: "#aaa",
-              textDecoration: "none",
-            }}
-          >
-            Forgot Password?
-          </Link>
-        </div>
         <p className="mt-3 text-center text-white text-opacity-50">
-          Don't have an account?{" "}
-          <a href="/signup" className="text-info">
-            Sign up
+          Already have an account?{" "}
+          <a href="/login" className="text-info">
+            Login
           </a>
         </p>
       </div>
@@ -90,4 +84,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

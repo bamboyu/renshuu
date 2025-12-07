@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { updateUser } from "../api/authApi";
+import { AuthContext } from "../../context/AuthContext";
+import { updateUser } from "../../api/authApi";
 
 export default function AccountSettingsPage() {
   const { accessToken } = useContext(AuthContext);

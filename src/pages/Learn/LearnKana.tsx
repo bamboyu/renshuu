@@ -1,9 +1,9 @@
 import { useState } from "react";
-import KanaList from "../components/LearnKana/KanaList";
-import KanaFlashCard from "../components/LearnKana/KanaFlashCard";
-import { hiragana, katakana } from "../data/kana";
-import type { KanaItem } from "../components/LearnKana/KanaList";
-import "../components/LearnKana/KanaList.css";
+import KanaList from "../../components/LearnKana/KanaList";
+import KanaFlashCard from "../../components/LearnKana/KanaFlashCard";
+import { hiragana, katakana } from "../../data/kana";
+import type { KanaItem } from "../../components/LearnKana/KanaList";
+import "../../components/LearnKana/KanaList.css";
 
 function LearnKana() {
   const [selectedHira, setSelectedHira] = useState<KanaItem[]>([]);

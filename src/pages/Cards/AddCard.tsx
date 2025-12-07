@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { createCard } from "../api/cardApi";
-import { getDecks } from "../api/deckApi";
-import { generateBack, generateImage } from "../api/generateApi";
+import { createCard } from "../../api/cardApi";
+import { getDecks } from "../../api/deckApi";
+import { generateBack, generateImage } from "../../api/generateApi";
 
 interface Deck {
   _id: string;
