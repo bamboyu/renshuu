@@ -1,9 +1,13 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import LearnKana from "./pages/LearnKana";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "./pages/ForgotPassword/ResetPassword";
 import Decks from "./pages/Decks";
 import AddCard from "./pages/AddCard";
 import NotFound from "./pages/NotFound";
@@ -13,8 +17,6 @@ import CardEditPage from "./pages/CardEditPage";
 import AccountSettingsPage from "./pages/AccountSettingPage";
 import Home from "./pages/Home";
 import Resources from "./pages/Resources";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const accessToken = localStorage.getItem("accessToken") || "";
@@ -30,6 +32,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/learn/kana" element={<LearnKana />} />
         <Route path="/learn/resources" element={<Resources />} />
 

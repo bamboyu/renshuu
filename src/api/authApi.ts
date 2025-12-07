@@ -82,3 +82,32 @@ export async function updateUser(userData: any, accessToken: string) {
 
   return data;
 }
+
+// Function to handle forgot password
+export async function forgotPassword(email: string) {
+  const res = await fetch(`${API_URL}/api/auth/forgot-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to send reset link");
+  }
+  return data;
+}
+
+// Function to reset password
+export async function resetPassword(token: string, newPassword: string) {
+  const res = await fetch(`${API_URL}/api/auth/reset-password/${token}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ newPassword }),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to reset password");
+  }
+  return data;
+}

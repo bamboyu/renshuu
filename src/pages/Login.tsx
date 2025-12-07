@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { loginUser } from "../api/authApi";
 
@@ -66,6 +66,19 @@ function Login() {
             Login
           </button>
         </form>
+        {/* Forgot Password Link */}
+        <div className="text-end mt-1">
+          <Link
+            to="/forgot-password"
+            style={{
+              fontSize: "0.85rem",
+              color: "#aaa",
+              textDecoration: "none",
+            }}
+          >
+            Forgot Password?
+          </Link>
+        </div>
         <p className="mt-3 text-center text-white text-opacity-50">
           Don't have an account?{" "}
           <a href="/signup" className="text-info">

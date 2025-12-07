@@ -79,7 +79,7 @@ const resources: ResourceSection[] = [
         title: "Yomitan (Browser Add-on)",
         url: "https://github.com/themoeway/yomitan",
         description:
-          "A pop-up dictionary that allows you to look up words easily while reading. An absolute must-have.",
+          "A pop-up dictionary that allows you to look up words easily while reading.",
         badge: "Essential",
         badgeColor: "success",
       },
@@ -119,6 +119,14 @@ const resources: ResourceSection[] = [
           "Load local subtitle files to video streaming sites for sentence mining.",
         badge: "Mining",
         badgeColor: "success",
+      },
+      {
+        title: "Anki",
+        url: "https://apps.ankiweb.net/",
+        description:
+          "The best flashcard app out there. Highly customizable and powerful SRS algorithm.",
+        badge: "Tool",
+        badgeColor: "warning",
       },
     ],
   },
