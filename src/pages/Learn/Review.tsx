@@ -65,11 +65,10 @@ const Review = () => {
 
       allCards.forEach((c: any) => {
         const cardDate = new Date(c.nextReview);
-        const isDueNow = cardDate <= now;
         const isDueToday = cardDate <= endOfDay;
 
         if (c.tag === "New") {
-          if (isDueNow) newCount++;
+          newCount++;
         } else if (c.tag === "Learning") {
           // Count learning cards due today
           if (isDueToday) learningCount++;
