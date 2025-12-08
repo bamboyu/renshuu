@@ -70,7 +70,6 @@ const Decks = () => {
       setCreating(true);
       const newDeck = await createDeck(accessToken, newDeckName);
 
-      // Update UI immediately
       setDecks((prev) => [...prev, newDeck]);
       setCardCounts((prev) => ({ ...prev, [newDeck._id]: 0 }));
 

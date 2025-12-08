@@ -17,7 +17,7 @@ export const AuthContext = createContext<AuthContextType>({
   setAuth: () => {},
 });
 
-// AuthProvider component to wrap around the app
+// AuthProvider component
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userID, setUserID] = useState<string | null>(null);

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { createCard } from "../../api/cardApi";
 import { getDecks } from "../../api/deckApi";
 import { generateBack, generateImage } from "../../api/generateApi";
+import { useSearchParams } from "react-router-dom";
 
 interface Deck {
   _id: string;
@@ -13,6 +14,7 @@ interface AddCardPageProps {
 }
 
 export default function AddCardPage({ accessToken }: AddCardPageProps) {
+  const [searchParams] = useSearchParams();
   const [decks, setDecks] = useState<Deck[]>([]);
   const [selectedDeckID, setSelectedDeckID] = useState<string>("");
   const [front, setFront] = useState("");
@@ -28,14 +30,24 @@ export default function AddCardPage({ accessToken }: AddCardPageProps) {
       try {
         const data = await getDecks();
         setDecks(data);
-        if (data.length > 0) setSelectedDeckID(data[0]._id);
+
+        // Check if DeckID is provided in URL params
+        const preSelectedID = searchParams.get("deckID");
+
+        if (preSelectedID) {
+          // If URL param exists
+          setSelectedDeckID(preSelectedID);
+        } else if (data.length > 0) {
+          // Default to the first deck
+          setSelectedDeckID(data[0]._id);
+        }
       } catch (err: any) {
         console.error(err);
         alert("Failed to load decks");
       }
     }
     fetchDecks();
-  }, [accessToken]);
+  }, [accessToken, searchParams]);
 
   // Generate back text
   const handleGenerateBack = async () => {

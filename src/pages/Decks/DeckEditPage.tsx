@@ -187,7 +187,10 @@ const DeckEditPage = () => {
 
       {/* Add New Card */}
       <div className="mt-4">
-        <Link to={`/decks/add-card`} className="btn btn-outline-primary w-100">
+        <Link
+          to={`/decks/add-card?deckID=${deckID}`}
+          className="btn btn-outline-primary w-100"
+        >
           Add New Card
         </Link>
       </div>
