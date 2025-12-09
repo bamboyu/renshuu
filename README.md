@@ -22,7 +22,7 @@ The frontend application for **Renshuu**, a modern flashcard app built for effic
 ### **Installation**
 
 1. **Clone the repository:**  
-   git clone \[https://github.com/yourusername/renshuu-frontend.git\](https://github.com/yourusername/renshuu-frontend.git)  
+   git clone https://github.com/bamboyu/renshuu.git  
    cd renshuu-frontend
 
 2. **Install dependencies:**  
